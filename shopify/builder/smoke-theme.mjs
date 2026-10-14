@@ -27,6 +27,7 @@ try{
       await page.locator('.header-actions select').selectOption(lang);
       assert.equal(await page.locator('h1').textContent(),'HAIORD Ring');
       assert.match(await page.locator('.brand-story').textContent(),lang==='zh'?/感知生命，理解世界。/:/Sense Life\. Understand the World\./);
+      assert.equal(await page.locator('#brand-story-title').textContent(),lang==='zh'?'你好，一个更懂你的世界。':'Hello, a World That Knows You.');
       assert.doesNotMatch(await page.locator('body').innerText(),/\bNOOR\b/);
       assert.match(await page.locator('.pricing-table').textContent(),new RegExp(price));
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);

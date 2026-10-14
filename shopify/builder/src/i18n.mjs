@@ -33,7 +33,7 @@ const zh = {
   'Close': '关闭',
   'A little ring. A deeper connection.': '小小戒指，更懂自己。',
   'Sense Life. Understand the World.': '感知生命，理解世界。',
-  'Hello, a World That Knows You.': '你好，更懂你的世界。',
+  'Hello, a World That Knows You.': '你好，一个更懂你的世界。',
   'Inspired by Hello World, HAIORD begins by sensing life and grows toward understanding the world. From health and movement to future intelligent assistance, we imagine a more connected and intuitive way to live.': '源于 Hello World 的灵感，元序从感知生命出发，逐步理解人与世界。从健康与运动，到未来更智能的生活辅助，我们期待让连接更自然，让生活更从容。',
   'Explore early access': '探索早鸟预订',
   'HAIORD Ring home': 'HAIORD Ring 首页',
