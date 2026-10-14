@@ -1,0 +1,26 @@
+{{ 'noor-app.css' | asset_url | stylesheet_tag }}
+<script>
+  window.NOOR_INITIAL_LANGUAGE = {% if request.locale.iso_code contains 'zh' %}'zh'{% else %}'en'{% endif %};
+  window.NOOR_THEME_ASSETS = {
+    {% assign noor_asset_names = 'gold-ring.webp|silver-ring.webp|gunmetal-ring.webp|rose-ring.webp|collection.webp|ring-detail.webp|charging-case.webp|sleep.webp|running.webp|cycling.webp|swimming.webp|app.webp|wearing.webp|finishes.webp|video1.mp4|video2.mp4|video1-poster.jpg|video2-poster.jpg' | split: '|' %}
+    {% for noor_name in noor_asset_names %}
+      {{ noor_name | json }}: {{ noor_name | asset_url | json }}{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  };
+</script>
+<div data-noor-root style="--gold: {{ section.settings.gold_color }}; --green: {{ section.settings.green_color }};"></div>
+<script src="{{ 'noor-app.js' | asset_url }}" type="module"></script>
+
+{% schema %}
+{
+  "name": "HAIORD Ring landing",
+  "tag": "section",
+  "class": "noor-landing-section",
+  "limit": 1,
+  "settings": [
+    {"type": "color", "id": "gold_color", "label": "Accent gold", "default": "#9a7738"},
+    {"type": "color", "id": "green_color", "label": "Accent green", "default": "#3c5347"}
+  ],
+  "presets": [{"name": "HAIORD Ring landing"}]
+}
+{% endschema %}

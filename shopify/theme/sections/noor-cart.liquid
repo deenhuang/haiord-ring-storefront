@@ -1,0 +1,36 @@
+<div class="noor-store-wrap">
+  <h1>{{ 'noor.cart' | t }}</h1>
+  {% if cart.item_count > 0 %}
+    {% form 'cart', cart %}
+      <div class="noor-cart-list">
+        {% for item in cart.items %}
+          <div class="noor-cart-item">
+            <div class="noor-cart-image">
+              {% if item.image %}<a href="{{ item.url }}">{{ item.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: item.product.title }}</a>{% endif %}
+            </div>
+            <div>
+              <a href="{{ item.url }}"><strong>{{ item.product.title | escape }}</strong></a>
+              {% unless item.variant.title == 'Default Title' %}<p>{{ item.variant.title | escape }}</p>{% endunless %}
+              <p>{{ item.final_line_price | money_with_currency }}</p>
+              <a class="noor-muted" href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0">{{ 'noor.remove' | t }}</a>
+            </div>
+            <label>{{ 'noor.quantity' | t }}
+              <input name="updates[]" type="number" min="0" value="{{ item.quantity }}" inputmode="numeric">
+            </label>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="noor-cart-actions">
+        <p>{{ 'noor.subtotal' | t }}: <strong>{{ cart.total_price | money_with_currency }}</strong></p>
+        <button type="submit" name="update" class="noor-button secondary">{{ 'noor.update_cart' | t }}</button>
+        <button type="submit" name="checkout" class="noor-button">{{ 'noor.checkout' | t }}</button>
+      </div>
+    {% endform %}
+  {% else %}
+    <p>{{ 'noor.empty_cart' | t }}</p>
+    <a class="noor-button" href="{{ routes.all_products_collection_url }}">{{ 'noor.continue_shopping' | t }}</a>
+  {% endif %}
+</div>
+{% schema %}
+{"name":"HAIORD cart","settings":[]}
+{% endschema %}

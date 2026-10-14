@@ -1,0 +1,37 @@
+<div class="noor-store-wrap noor-product">
+  {% if product != blank %}
+    <div class="noor-product-media">
+      {% if product.featured_image %}
+        {{ product.featured_image | image_url: width: 1200 | image_tag: loading: 'eager', alt: product.title }}
+      {% endif %}
+    </div>
+    <div class="noor-product-info">
+      <p class="noor-kicker">HAIORD RING</p>
+      <h1>{{ product.title | escape }}</h1>
+      <p class="noor-product-price" data-noor-price>{{ product.selected_or_first_available_variant.price | money_with_currency }}</p>
+      {% if product.description != blank %}<div class="noor-description">{{ product.description }}</div>{% endif %}
+      {% form 'product', product %}
+        {% if product.has_only_default_variant %}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        {% else %}
+          <label for="NoorVariant">{{ 'noor.select_variant' | t }}</label>
+          <select id="NoorVariant" name="id" data-noor-variant>
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}" data-price="{{ variant.price | money_with_currency | escape }}" {% if variant.id == product.selected_or_first_available_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+                {{ variant.title | escape }}{% unless variant.available %} · {{ 'noor.sold_out' | t }}{% endunless %}
+              </option>
+            {% endfor %}
+          </select>
+        {% endif %}
+        <label for="NoorQuantity">{{ 'noor.quantity' | t }}</label>
+        <input id="NoorQuantity" type="number" name="quantity" value="1" min="1" inputmode="numeric">
+        <button class="noor-button" type="submit" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+          {% if product.selected_or_first_available_variant.available %}{{ 'noor.add_to_cart' | t }}{% else %}{{ 'noor.sold_out' | t }}{% endif %}
+        </button>
+      {% endform %}
+    </div>
+  {% endif %}
+</div>
+{% schema %}
+{"name":"HAIORD product","settings":[]}
+{% endschema %}

@@ -1,0 +1,27 @@
+from pathlib import Path
+from PIL import Image, ImageDraw
+
+root = Path(__file__).resolve().parents[1] / 'qa'
+reference = Image.open('/var/folders/wk/p4krcvk532d0v7_jqb6_bpyc0000gn/T/codex-clipboard-ccced01d-362b-4635-9184-a09108375fd2.png').convert('RGB')
+implementation = Image.open(root / 'desktop-first-screen.png').convert('RGB')
+source = reference.crop((0, 0, reference.width, 3100))
+source.thumbnail((720, 940))
+implementation.thumbnail((720, 940))
+comparison = Image.new('RGB', (1440, max(source.height, implementation.height) + 45), 'white')
+draw = ImageDraw.Draw(comparison)
+draw.text((20, 16), 'Cybopal supplied presale reference (composition only)', fill='black')
+draw.text((740, 16), 'NOOR Ring implementation: desktop 1440 x 1000', fill='black')
+comparison.paste(source, (0, 45))
+comparison.paste(implementation, (720, 45))
+comparison.save(root / 'comparison-purchase.png')
+reference.thumbnail((420, 4000))
+full = Image.open(root / 'desktop.png').convert('RGB')
+full.thumbnail((600, 4000))
+overview = Image.new('RGB', (1020, max(reference.height, full.height) + 45), 'white')
+draw = ImageDraw.Draw(overview)
+draw.text((12, 16), 'Cybopal reference: original presale structure', fill='black')
+draw.text((435, 16), 'NOOR adaptation: same purchase-to-features-to-FAQ journey', fill='black')
+overview.paste(reference, (0, 45))
+overview.paste(full, (420, 45))
+overview.save(root / 'comparison-overview.png')
+print('Comparison evidence saved.')

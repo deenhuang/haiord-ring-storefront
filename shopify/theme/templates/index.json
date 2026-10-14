@@ -1,0 +1,6 @@
+{
+  "sections": {
+    "main": {"type": "noor-home", "settings": {"gold_color": "#9a7738", "green_color": "#3c5347"}}
+  },
+  "order": ["main"]
+}

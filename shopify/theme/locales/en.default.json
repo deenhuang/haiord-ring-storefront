@@ -1,0 +1,22 @@
+{
+  "noor": {
+    "navigation": "Store navigation",
+    "home": "Home",
+    "shop": "Shop",
+    "cart": "Cart",
+    "from": "From",
+    "select_variant": "Choose an option",
+    "quantity": "Quantity",
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "description": "Description",
+    "update_cart": "Update cart",
+    "checkout": "Checkout",
+    "remove": "Remove",
+    "empty_cart": "Your cart is empty.",
+    "continue_shopping": "Continue shopping",
+    "subtotal": "Subtotal",
+    "page_not_found": "Page not found",
+    "return_home": "Return home"
+  }
+}

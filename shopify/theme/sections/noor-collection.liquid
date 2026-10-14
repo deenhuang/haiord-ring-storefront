@@ -1,0 +1,19 @@
+<div class="noor-store-wrap">
+  <h1>{{ collection.title | escape }}</h1>
+  {% if collection.description != blank %}<div class="noor-description">{{ collection.description }}</div>{% endif %}
+  <div class="noor-product-grid">
+    {% paginate collection.products by 24 %}
+      {% for product in collection.products %}
+        <a class="noor-product-tile" href="{{ product.url }}">
+          {% if product.featured_image %}{{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}{% endif %}
+          <h2>{{ product.title | escape }}</h2>
+          <p>{{ 'noor.from' | t }} {{ product.price | money_with_currency }}</p>
+        </a>
+      {% endfor %}
+      {% if paginate.pages > 1 %}<div class="noor-pagination">{{ paginate | default_pagination }}</div>{% endif %}
+    {% endpaginate %}
+  </div>
+</div>
+{% schema %}
+{"name":"HAIORD collection","settings":[]}
+{% endschema %}
