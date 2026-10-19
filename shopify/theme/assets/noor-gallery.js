@@ -37,6 +37,12 @@ export function enhanceGallery(gallery, { interval = 5000 } = {}) {
   const nextControl = next.cloneNode(true);
   nextControl.className = 'noor-gallery-nav noor-gallery-next';
   nextControl.removeAttribute('id');
+  const navigationIcon = gallery.closest('.purchase')?.querySelector('.reserve-row .button:last-child svg');
+  if (navigationIcon) {
+    previousControl.replaceChildren(navigationIcon.cloneNode(true));
+    nextControl.replaceChildren(navigationIcon.cloneNode(true));
+    previousControl.classList.add('noor-gallery-reverse-icon');
+  }
   const pagination = document.createElement('div');
   pagination.className = 'noor-gallery-pagination';
   const dots = thumbnails().map((button, index) => {
