@@ -46,6 +46,7 @@
 }
 .product-gallery .noor-gallery-nav { width: 32px; }
 .product-gallery .noor-gallery-nav svg { width: 18px; height: 18px; }
+.product-gallery .noor-gallery-reverse-icon svg { transform: rotate(180deg); }
 .product-gallery .noor-gallery-pagination { display: flex; align-items: center; }
 .product-gallery .noor-gallery-dot { width: 24px; transition: width 220ms ease; }
 .product-gallery .noor-gallery-dot[aria-current="true"] { width: 56px; }
