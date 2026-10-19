@@ -60,7 +60,7 @@ const zh = {
   'View charging case': '查看充电盒',
   'Play product film': '播放产品视频',
   'Product film': '产品视频',
-  'EARLY ACCESS · COMING SOON': '早鸟预订 · 即将开启',
+  'COMING SOON · PRE-ORDER NOW': '即将发售 · 预购开启',
   'Your smart health companion.': '元序智能戒指 · 你的智能健康伙伴。',
   'Know your sleep. Understand your energy.': '了解睡眠，掌握身体能量。',
   'A little more insight, without more screen time.': '多一份健康洞察，少一点屏幕负担。',
