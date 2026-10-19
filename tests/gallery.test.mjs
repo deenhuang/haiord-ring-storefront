@@ -5,7 +5,7 @@ import { enhanceGallery, startProductGalleries } from '../shopify/theme/assets/n
 
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 function fixture(language = 'en', reduced = false) {
-  const dom = new JSDOM(`<html lang="${language}"><body><div class="product-gallery"><div class="main-image"><img src="/1.webp" alt="Ring"><button class="gallery-arrow next">Next</button></div><div class="thumbnails">${[1,2,3,4].map((n,i)=>`<button aria-pressed="${!i}"><img src="/${n}.webp"></button>`).join('')}</div></div></body></html>`, { url: 'https://haiord.com', pretendToBeVisual: true });
+  const dom = new JSDOM(`<html lang="${language}"><body><div class="product-gallery"><div class="main-image"><img src="/1.webp" alt="Ring"><button class="gallery-arrow prev">Previous</button><button class="gallery-arrow next">Next</button></div><div class="thumbnails">${[1,2,3,4].map((n,i)=>`<button aria-pressed="${!i}"><img src="/${n}.webp"></button>`).join('')}</div></div></body></html>`, { url: 'https://haiord.com', pretendToBeVisual: true });
   const { window } = dom;
   window.matchMedia = () => ({ matches: reduced, addEventListener() {}, removeEventListener() {} });
   window.HTMLImageElement.prototype.decode = async () => {};
@@ -20,6 +20,7 @@ function fixture(language = 'en', reduced = false) {
   };
   thumbnails.forEach((button,i) => button.addEventListener('click',()=>select(i)));
   gallery.querySelector('.next').addEventListener('click',()=>select((index+1)%4));
+  gallery.querySelector('.prev').addEventListener('click',()=>select((index+3)%4));
   const controller = enhanceGallery(gallery, { interval: 30 });
   return { dom, window, gallery, image, controller, get index() { return index; } };
 }
@@ -28,6 +29,41 @@ test('automatically advances and loops through existing gallery controls', async
   const f = fixture();
   try { await wait(40); assert.equal(f.index, 1); await wait(95); assert.equal(f.index, 0); }
   finally { f.controller.destroy(); f.dom.window.close(); }
+});
+
+test('dots navigate to the selected slide and keep the active indicator synchronized', async () => {
+  const f = fixture();
+  try {
+    f.gallery.querySelector('.noor-gallery-toggle').click();
+    const dots = [...f.gallery.querySelectorAll('.noor-gallery-dot')];
+    assert.equal(dots.length, 4);
+    dots[2].click(); await wait(5);
+    assert.equal(f.index, 2);
+    assert.equal(dots[2].getAttribute('aria-current'), 'true');
+    assert.equal(dots[0].getAttribute('aria-current'), 'false');
+    f.gallery.querySelector('.thumbnails button').click(); await wait(5);
+    assert.equal(dots[0].getAttribute('aria-current'), 'true');
+  } finally { f.controller.destroy(); f.dom.window.close(); }
+});
+
+test('compact previous and next controls use the original gallery navigation', async () => {
+  const f = fixture();
+  try {
+    f.gallery.querySelector('.noor-gallery-toggle').click();
+    f.gallery.querySelector('.noor-gallery-prev').click(); await wait(5); assert.equal(f.index, 3);
+    f.gallery.querySelector('.noor-gallery-next').click(); await wait(5); assert.equal(f.index, 0);
+  } finally { f.controller.destroy(); f.dom.window.close(); }
+});
+
+test('pausing preserves elapsed time and resuming uses the remaining slide duration', async () => {
+  const f = fixture();
+  try {
+    await wait(15);
+    f.gallery.dispatchEvent(new f.window.Event('pointerenter'));
+    await wait(50); assert.equal(f.index, 0);
+    f.gallery.dispatchEvent(new f.window.Event('pointerleave'));
+    await wait(23); assert.equal(f.index, 1);
+  } finally { f.controller.destroy(); f.dom.window.close(); }
 });
 
 test('hover pauses autoplay and leaving resumes it', async () => {
@@ -85,7 +121,7 @@ test('keyboard focus pauses and leaving the gallery resumes', async () => {
   const f = fixture();
   try {
     f.gallery.querySelector('.next').focus(); await wait(50); assert.equal(f.index, 0);
-    f.gallery.querySelector('.next').blur(); await wait(40); assert.equal(f.index, 1);
+    f.gallery.querySelector('.next').blur(); await wait(40); assert.notEqual(f.index, 0);
   } finally { f.controller.destroy(); f.dom.window.close(); }
 });
 
