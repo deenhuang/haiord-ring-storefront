@@ -8,6 +8,7 @@
 .product-gallery .main-image > .noor-gallery-fading { opacity: 0; }
 .product-gallery .gallery-caption,
 .product-gallery .gallery-bottom { z-index: 2; pointer-events: none; }
+.product-gallery .gallery-bottom > span:first-child { display: none; }
 .product-gallery.noor-gallery-enhanced .gallery-arrow,
 .product-gallery.noor-gallery-enhanced .gallery-number { display: none; }
 .product-gallery .noor-gallery-controls {
@@ -89,7 +90,6 @@
   .product-gallery .noor-gallery-dot { width: 24px; }
   .product-gallery .noor-gallery-dot[aria-current="true"] { width: 46px; }
   .product-gallery .noor-gallery-dot[aria-current="true"] .noor-gallery-dot-track { width: 36px; }
-  .product-gallery.noor-gallery-enhanced .gallery-bottom { bottom: 72px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .product-gallery .main-image > .noor-gallery-outgoing,
