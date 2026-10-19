@@ -16,11 +16,15 @@ The Shopify toolkit theme validator could not run because its bundled theme-chec
 
 Qibla compass and prayer reminders are described as available HAIORD app features in English and Chinese, including their labels and related FAQ. Hardware-capability qualifications remain unchanged.
 
+## Preorder messaging
+
+The production product status is COMING SOON · PRE-ORDER NOW / 即将发售 · 预购开启. The production primary CTA is Pre-order now / 立即预购. Existing cart and checkout behavior is unchanged. English/Chinese status and CTA text were verified in the actual latest preview, including mobile overflow checks.
+
 ## Shopify preview and publishing
 
-Draft theme: `HAIORD Gallery Controls Preview` (193358627180), copied from the prior app-feature update so it retains the latest copy and current storefront layout.
+Latest combined preview: `HAIORD Preorder Copy Update` (193359380844), duplicated from the current live gallery-controls theme so it retains the gallery controls and app-feature copy.
 
-- English: https://haiord.com/en?preview_theme_id=193358627180#overview
-- Chinese: https://haiord.com/?preview_theme_id=193358627180&language=zh#overview
+- English: https://haiord.com/en?preview_theme_id=193359380844#overview
+- Chinese: https://haiord.com/?preview_theme_id=193359380844&language=zh#overview
 
 Publishing the draft must be completed in Shopify admin. GitHub PR changes alone do not publish Shopify. The older repository theme differs from production; the control and copy changes were applied to their respective existing baselines. Do not replace production with the older repository theme without reconciling the other differences. The existing root theme ZIP has not been regenerated from that older baseline.
