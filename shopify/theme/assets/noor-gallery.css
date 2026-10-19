@@ -1,0 +1,32 @@
+.product-gallery .main-image > .noor-gallery-outgoing {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 700ms cubic-bezier(.22, 1, .36, 1);
+}
+.product-gallery .main-image > .noor-gallery-fading { opacity: 0; }
+.product-gallery .gallery-arrow,
+.product-gallery .gallery-caption,
+.product-gallery .gallery-bottom { z-index: 2; }
+.product-gallery .noor-gallery-toggle {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #d7d7d0;
+  border-radius: 50%;
+  background: #fffffff0;
+  color: #252a23;
+  font: 16px/1 sans-serif;
+  cursor: pointer;
+}
+.product-gallery .noor-gallery-toggle:focus-visible { outline: 2px solid #9a7738; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .product-gallery .main-image > .noor-gallery-outgoing { transition: none; }
+}
+
